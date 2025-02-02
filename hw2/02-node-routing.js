@@ -27,7 +27,7 @@ const server = http.createServer((req, res) => {
       'Content-Type': 'text/plain',
       'Set-Cookie': 'hello=world'
     });
-    res.write('cookies… yummm');
+    res.write('cookies... yummm');
     res.end();
   } else {
     res.writeHead(404, { 'Content-Type': 'text/html' });
