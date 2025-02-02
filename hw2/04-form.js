@@ -1,4 +1,5 @@
 const express = require('express');
+
 const app = express();
 const port = process.env.PORT || 5001;
 
@@ -33,8 +34,8 @@ app.post('/submit', (req, res) => {
   const { name, email, comments, newsletter } = req.body;
 
   // Customize the newsletter response
-  const newsletterResponse = newsletter === 'yes' 
-    ? 'Yes, sign me up for the newsletter.' 
+  const newsletterResponse = newsletter === 'yes'
+    ? 'Yes, sign me up for the newsletter.'
     : 'No, thank you.';
 
   // Display the submitted data on a white page
