@@ -5,7 +5,10 @@ const port = process.env.PORT || 5001;
 const server = http.createServer((req, res) => {
   const { url } = req;
 
-  if (url === '/welcome') {
+  if (url === '/') {
+    res.writeHead(302, { Location: '/welcome' });
+    res.end();
+  } else if (url === '/welcome') {
     res.writeHead(200, { 'Content-Type': 'text/html' });
     res.write('<h1>Welcome to the Node.js Routing Exercise!</h1>');
     res.end();

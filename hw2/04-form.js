@@ -6,6 +6,12 @@ const port = process.env.PORT || 5001;
 // Middleware to parse form data
 app.use(express.urlencoded({ extended: true }));
 
+
+app.get('/', (req, res) => {
+  res.status(302);
+  res.set({ Location: '/form' });
+  res.end();
+});
 // Route to serve the form
 app.get('/form', (req, res) => {
   res.status(200);
@@ -38,13 +44,15 @@ app.post('/submit', (req, res) => {
     ? 'Yes, sign me up for the newsletter.'
     : 'No, thank you.';
 
+  const commentsResponse = comments ? comments : 'N/A';
+
   // Display the submitted data on a white page
   res.status(200);
   res.set({ 'Content-Type': 'text/html' });
   res.send(`
     <p>Name: ${name}</p>
     <p>Email: ${email}</p>
-    <p>Comments: ${comments}</p>
+    <p>Comments: ${commentsResponse}</p>
     <p>Newsletter: ${newsletterResponse}</p>
   `);
 });
