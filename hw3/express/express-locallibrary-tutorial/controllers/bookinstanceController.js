@@ -79,7 +79,7 @@ exports.bookinstance_create_post = [
         res.render("bookinstance_form", {
           title: "Create BookInstance",
           book_list: allBooks,
-          selected_book: bookInstance.book._id,
+          selected_book: bookInstance.book,
           errors: errors.array(),
           bookinstance: bookInstance,
         });
