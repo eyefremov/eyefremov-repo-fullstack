@@ -4,19 +4,25 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var indexRouter = require("./routes/index");
+var usersRouter = require("./routes/users");
+const catalogRouter = require("./routes/catalog"); //Import routes for "catalog" area of site
+
 
 var app = express();
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
+const fs = require('fs');
+
+// Read the password from the file
+const uriFilePath = path.join(__dirname, 'mongodbURI.txt');
+const MONGODB_URI = fs.readFileSync(uriFilePath, 'utf8').trim();
 mongoose.set("strictQuery", false);
-const mongoDB = "mongodb+srv://yefremov:nN2TW1P2pFDQplVg@cluster0.3zwvm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 main().catch((err) => console.log(err));
 async function main() {
-  await mongoose.connect(mongoDB);
+  await mongoose.connect(MONGODB_URI);
 }
 
 
@@ -30,8 +36,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use("/", indexRouter);
+app.use("/users", usersRouter);
+app.use("/catalog", catalogRouter); // Add catalog routes to middleware chain.
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
