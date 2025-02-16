@@ -1,8 +1,7 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema;
+const { Schema } = mongoose;
 
-// Define the Genre schema
 const GenreSchema = new Schema({
   name: {
     type: String,
@@ -13,9 +12,10 @@ const GenreSchema = new Schema({
 });
 
 // Virtual for genre's URL
-GenreSchema.virtual("url").get(function () {
+GenreSchema.virtual('url').get(function () {
   return `/catalog/genre/${this._id}`;
 });
 
 // Prevent OverwriteModelError by checking if the model already exists
-module.exports = mongoose.models.Genre || mongoose.model("Genre", GenreSchema);
+module.exports = mongoose.models.Genre || mongoose.model('Genre', GenreSchema);
+
